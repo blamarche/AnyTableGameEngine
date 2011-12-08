@@ -1,0 +1,19 @@
+AnyTable Game Engine
+--------------------
+
+Project Goal: 
+The goal of this project is to create a highly flexible, efficient way to play table-top and complete-information board games on the web. This should have no signup process needed, and support an "infinite" number of players
+
+Initial Scope:
+Custom game type builder
+Pre-made game types for popular games
+Password protection or sufficiently complex url to share per-game
+Shared game notes / chat
+Dice rolls
+
+Potential Future Features:
+View-only mode/url
+Self-contained image hosting/uploading for table graphic and game pieces
+Support for hidden-information games
+Game history
+
