@@ -136,7 +136,8 @@ function loadBoard( jsonObj )
 			y: jsonObj.active_pieces[i].position[1],
 			origin: { x: "center", y: "center" },
 			shadow: jsonObj.settings.piece_shadow,
-			image: jsonObj.active_pieces[i].image_url
+			image: jsonObj.active_pieces[i].image_url,
+			rotation: jsonObj.active_pieces[i].rotation
 		});
 		
 		activePieces.push(piece);
@@ -159,7 +160,8 @@ function loadBoard( jsonObj )
 			y: jsonObj.addable_pieces[i].position[1],
 			origin: { x: "center", y: "center" },
 			shadow: jsonObj.settings.piece_shadow,
-			image: jsonObj.addable_pieces[i].image_url
+			image: jsonObj.addable_pieces[i].image_url,
+			rotation: jsonObj.addable_pieces[i].rotation
 		});
 		
 		addablePieces[ jsonObj.addable_pieces[i].name ] = piece;
@@ -212,9 +214,9 @@ function initActionGuiObj()
 	
 	//HACK : ZINDEX DOES NOT WORK CORRECTLY WITH BIND CLICK TAP, SO USING DRAGSTART
 	remove.dragAndDrop({ start: function() {
-		console.log("remove");
+		//console.log("remove");
 		this.dragging=false;
-		if (selectedPiece!=null)
+		if (selectedPiece!=null && selectedPiece._atge_removable)
 		{
 			canvas.removeChild(actionGuiObj);
 			
@@ -227,10 +229,11 @@ function initActionGuiObj()
 	}});
 	
 	rotate.dragAndDrop({ start: function() {
-		console.log("rotate");
+		//console.log("rotate");
 		this.dragging=false;
 		if (selectedPiece!=null)
 		{
+			//HACK : NEED WAY TO DETERMINE IF ANIMATION IS STILL RUNING
 			//selectedPiece.animate({rotation: selectedPiece.rotation+45}, 100, "linear");
 			selectedPiece.rotation += 45;
 		}
