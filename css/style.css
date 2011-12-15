@@ -6,3 +6,52 @@ html, body {
 	padding: 0 0;
 	overflow: hidden;
 }
+
+#menu {
+	position: absolute;
+	left: -1px;
+	top: 0;
+	width: 1px;
+	height: 100%;
+	overflow: scroll;
+	background-color: #fff;
+	opacity: 0.95;
+}
+	
+	.bar, .info {
+		padding-left: 5px;
+		padding-right: 5px;
+	}
+	
+	.bar {
+		background: #ddd;
+		padding-left: 5px;
+		margin-top: 10px;
+		border-bottom: 1px solid #666;
+	}
+
+	#hide_menu {
+		overflow: hidden;
+	}
+	
+	#addables {
+		background: #fff;
+		text-align: center;
+	}
+	
+	.addpiece {
+		float: left;
+		margin: 4px 4px;
+		width: 45px;
+		height: 45px;
+		padding: 1px 1px;
+		border: 1px solid #000;
+	}
+		.addpiece img {
+			width: 45px;
+			height: 45px;
+		}
+		
+.clearFloat {
+	clear: both;
+}

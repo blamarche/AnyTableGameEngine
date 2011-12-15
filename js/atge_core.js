@@ -4,7 +4,7 @@ var boardSettings = null;
 var boardAddables = null;
 var activePieces = [];
 var addablePieces = {};
-var canvas = null, moveTapeObj = null, board = null, actionGuiObj = null, selectedPiece = null;
+var canvas, moveTapeObj, board = null, actionGuiObj, selectedPiece = null, menuButton = null;
 
 //game functions
 function removePieceFromBoard( piece )
@@ -78,8 +78,69 @@ function getBoardJSON(incrementTurn)
 }
 
 
+function createMenu()
+{
+	var holder = $("#addables");
+	holder.html("");
+	
+	for (var piecename in addablePieces)
+	{	
+		var piece = addablePieces[piecename];
+		var entry = $("<div></div>");
+		entry.attr("class", "addpiece");
+		entry.attr("piecename", piece._atge_name);
+		entry.attr("title", piece._atge_name);
+		entry.append('<img src="'+piece._atge_image+'" />');
+		
+		holder.append(entry);
+	}
+	
+	$(".addpiece").click(function(ev) {
+		console.log($(this).attr("piecename"));
+		hideMenu();
+		addPieceToBoard($(this).attr("piecename"));
+	});
+}
+
+function showMenu()
+{
+	$("#menu").animate({ width: "250px" }, 200, function() {
+		//BUG : This just doesnt seem to work right on android, after rotation, sometimes works?
+		$("#menuScroll").touchScroll();
+	});
+}
+
+function hideMenu() 
+{
+	$("#menu").animate({ width: "1px" }, 200);
+}
+
 function loadBoard( jsonObj )
 {
+	//menu button
+	if (menuButton == null)
+	{
+		menuButton = canvas.display.image({
+			x: 0,
+			y: canvas.height,
+			origin: { x: "left", y: "bottom" },
+			shadow: "2 2 2 #000",
+			image: "../images/gui_menu_button.png"
+		});
+		
+		canvas.addChild(menuButton);
+		
+		menuButton.dragAndDrop({ start: function(ev) {
+			this.dragging=false;
+			showMenu();
+		}});	
+		
+		$("#hide_menu").click(hideMenu);
+		
+		//HACK : touch-scroll plugin issue?
+		$("#menu").height(canvas.height);
+	}
+	
 	//create gui object for piece interaction
 	initActionGuiObj();
 	
@@ -103,6 +164,12 @@ function loadBoard( jsonObj )
 	boardSettings = jsonObj.settings;
 	boardAddables = jsonObj.addable_pieces;
 	
+	//html elements
+	$("#notes").html(boardSettings.notes);
+	$("#rolls").html(boardSettings.rolls);
+	$("#chat").html(boardSettings.chat);
+	$("#turn").html(boardSettings.turn_number);
+	
 	//create parent board
 	board = canvas.display.image({
 		x: 0,
@@ -115,6 +182,7 @@ function loadBoard( jsonObj )
 	//setup board event bindings
 	board.dragAndDrop({
 		start: function () {
+			hideMenu();
 			if (selectedPiece!=null)
 			{
 				canvas.removeChild(actionGuiObj);
@@ -170,6 +238,9 @@ function loadBoard( jsonObj )
 		piece._atge_image = jsonObj.addable_pieces[i].image_url;
 	}
 	
+	//create menu
+	createMenu();
+	
 	/*
 	board.bind("click tap", function(ev) { 
 		if (ev.which == 2)
@@ -180,6 +251,7 @@ function loadBoard( jsonObj )
 	//add the finished game board to the canvas
 	canvas.addChild(board);
 	
+	menuButton.zIndex="front";
 }
 
 function initActionGuiObj()
@@ -195,15 +267,15 @@ function initActionGuiObj()
 	
 	var remove = canvas.display.image({
 		x: 0,
-		y: 15,
+		y: 2,
 		origin: { x: "top", y: "left" },
 		shadow: "3 3 10 #005",
 		image: "../images/gui_piece_remove.png"
 	});
 	
 	var rotate = canvas.display.image({
-		x: 20,
-		y: 15,
+		x: 17,
+		y: 2,
 		origin: { x: "top", y: "left" },
 		shadow: "3 3 10 #005",
 		image: "../images/gui_piece_rotate.png"
@@ -244,6 +316,8 @@ function setPieceEvents(piece)
 {
 	piece.dragAndDrop({
 		start: function () {
+			hideMenu();
+			
 			//apply visual styles and show line
 			this.shadow = boardSettings.piece_interact_shadow;
 			this.scale(boardSettings.piece_interact_scale, boardSettings.piece_interact_scale);
