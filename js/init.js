@@ -2,6 +2,31 @@
  Init script for main features
 */
 
+
+//init
+$(document).ready(function(){
+	//initialize canvas
+	$("#canvas").attr("width", window.innerWidth);
+	$("#canvas").attr("height", window.innerHeight);
+	
+	/*
+	canvas = oCanvas.create({
+		canvas: "#canvas",
+		background: "#225",
+		fps: 25
+	});
+	*/
+	
+    director = new CAAT.Director().initialize(window.innerWidth, window.innerHeight, document.getElementById('canvas'));
+	canvas = director.createScene().setFillStyle('#225');
+	director.loop(25);
+	
+	$("#chess").click(function(){ $(this).parent().css("display","none"); loadBoard(chessBoardJSON); });
+	$("#oware").click(function(){ $(this).parent().css("display","none"); loadBoard(owareBoardJSON); });
+	
+});
+
+
 //oware / warri example board json
 var owareBoardJSON = {
    "settings":{
@@ -16,7 +41,7 @@ var owareBoardJSON = {
       "piece_shadow":"2 2 5 #111",
       "piece_interact_shadow":"4 4 5 #222",
       "piece_interact_scale":1.07,
-      "piece_interact_opacity":1,
+      "piece_interact_opacity":0.95,
       "notes":"<div>Here is an example note field</div><div>And another line of the note field</div>",
       "chat":"<div>Nick1: Sup</div><div>Nick2: Yo!</div>",
       "rolls":"<div>2011-12-12 19:05:23 - Nick1 rolled a 6 from 2 12-sided dice.</div><div>2011-12-14 11:14:57 - Nick2 rolled a 14 from 3 6-sided dice.</div>"
@@ -580,7 +605,7 @@ var chessBoardJSON = {
 		"piece_shadow": "3 3 10 #004",
 		"piece_interact_shadow": "6 6 10 #007",
 		"piece_interact_scale": 1.07,
-		"piece_interact_opacity": 1,
+		"piece_interact_opacity": 0.95,
 		"notes": "<div>Here is an example note field</div><div>And another line of the note field</div>",
 		"chat": "<div>Nick1: Sup</div><div>Nick2: Yo!</div>",
 		"rolls": "<div>2011-12-12 19:05:23 - Nick1 rolled a 6 from 2 12-sided dice.</div><div>2011-12-14 11:14:57 - Nick2 rolled a 14 from 3 6-sided dice.</div>"
@@ -944,22 +969,3 @@ var chessBoardJSON = {
 };
 
 
-
-//init
-$(document).ready(function(){
-	//initialize canvas
-	$("#canvas").attr("width", window.innerWidth);
-	$("#canvas").attr("height", window.innerHeight);
-	
-	canvas = oCanvas.create({
-		canvas: "#canvas",
-		background: "#225",
-		fps: 25
-	});
-	
-	//loadBoard(owareBoardJSON);
-	
-	$("#chess").click(function(){ $(this).parent().css("display","none"); loadBoard(chessBoardJSON); });
-	$("#oware").click(function(){ $(this).parent().css("display","none"); loadBoard(owareBoardJSON); });
-	
-});

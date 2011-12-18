@@ -4,7 +4,7 @@ var boardSettings = null;
 var boardAddables = null;
 var activePieces = [];
 var addablePieces = {};
-var canvas, moveTapeObj, board = null, actionGuiObj, selectedPiece = null, menuButton = null;
+var director, canvas, moveTapeObj, board = null, actionGuiObj, selectedPiece = null, menuButton = null;
 
 //game functions
 function removePieceFromBoard( piece )
@@ -27,16 +27,34 @@ function addPieceToBoard( name )
 	var piece = addablePieces[name];
 	if (typeof piece != "undefined" && piece!=null)
 	{
-		var newpiece = piece.clone();
-		if (newpiece.x==-1 && newpiece.y==-1)
+		var newpiece = new CAAT.ActorContainer()
+		                .setBackgroundImage(piece.backgroundImage,true)
+		                .centerAt(piece.x, piece.y)
+		                .setRotation(piece.rotationAngle);
+		
+		/*
+		var piece = canvas.display.image({
+			x: jsonObj.active_pieces[i].position[0],
+			y: jsonObj.active_pieces[i].position[1],
+			origin: { x: "center", y: "center" },
+			shadow: jsonObj.settings.piece_shadow,
+			image: jsonObj.active_pieces[i].image_url,
+			rotation: jsonObj.active_pieces[i].rotation
+		});
+		*/
+	
+		newpiece._atge_removable = piece._atge_removable;
+		newpiece._atge_name = piece._atge_name;
+		newpiece._atge_image = piece._atge_image;
+		
+		if (newpiece.x<0 && newpiece.y<0)
 		{
-			newpiece.x = canvas.mouse.x - board.x;
-			newpiece.y = canvas.mouse.y - board.y;
+			newpiece.centerAt(board.width/2, board.height/2);
 		}
 		board.addChild(newpiece);
 		activePieces.push(newpiece);
 		
-		newpiece.zIndex = "front";
+		board.setZOrder(newpiece,99999);
 		
 		setPieceEvents(newpiece);
 	}
@@ -96,7 +114,6 @@ function createMenu()
 	}
 	
 	$(".addpiece").click(function(ev) {
-		console.log($(this).attr("piecename"));
 		hideMenu();
 		addPieceToBoard($(this).attr("piecename"));
 	});
@@ -120,6 +137,10 @@ function loadBoard( jsonObj )
 	//menu button
 	if (menuButton == null)
 	{
+        var menuimg = getAndLoadImage("../images/gui_menu_button.png");
+		menuButton = new CAAT.ActorContainer().setBackgroundImage(menuimg,true);
+		
+		/*
 		menuButton = canvas.display.image({
 			x: 0,
 			y: canvas.height,
@@ -127,13 +148,13 @@ function loadBoard( jsonObj )
 			shadow: "2 2 2 #000",
 			image: "../images/gui_menu_button.png"
 		});
+		*/
 		
 		canvas.addChild(menuButton);
 		
-		menuButton.dragAndDrop({ start: function(ev) {
-			this.dragging=false;
-			showMenu();
-		}});	
+		menuButton.mouseDown=function(){
+		    showMenu();
+		}
 		
 		$("#hide_menu").click(hideMenu);
 		
@@ -145,6 +166,11 @@ function loadBoard( jsonObj )
 	initActionGuiObj();
 	
 	//create move 'tape' object to show relative piece movement length
+    var path = new CAAT.LinearPath().setInitialPosition(0,0).setFinalPosition(1,1);
+    path.color = "rgba(255,0,0,0.5)"; //HACK - this should be better
+	moveTapeObj = new CAAT.PathActor().setPath(path).setStrokeStyle("rgba(255,0,0,0.5)");
+	
+	/*
 	moveTapeObj = canvas.display.line({
 		start: { x: 0, y: 0 },
 		end: { x: 1, y: 1 },
@@ -152,6 +178,7 @@ function loadBoard( jsonObj )
 		cap: "round",
 		opacity: 0.35
 	});
+	*/
 	
 	//reset board if exists
 	if (board != null)
@@ -171,16 +198,11 @@ function loadBoard( jsonObj )
 	$("#turn").html(boardSettings.turn_number);
 	
 	//create parent board
-	board = canvas.display.image({
-		x: 0,
-		y: 0,
-		origin: { x: "left", y: "top" },
-		shadow: jsonObj.settings.board_shadow,
-		image: jsonObj.settings.board_image_url
-	});
+	var boardimg = getAndLoadImage(jsonObj.settings.board_image_url);
+    board = new CAAT.ActorContainer().setBackgroundImage(boardimg,true);
 	
 	//setup board event bindings
-	board.dragAndDrop({
+	enableBasicDrag(board, false, {
 		start: function () {
 			hideMenu();
 			if (selectedPiece!=null)
@@ -188,17 +210,25 @@ function loadBoard( jsonObj )
 				canvas.removeChild(actionGuiObj);
 				selectedPiece = null;
 			}
-			this.shadow = boardSettings.board_interact_shadow;
+			//this.shadow = boardSettings.board_interact_shadow;
 		},
-		move: function () {	},
+		move: function () { },
 		end: function () {
-			this.shadow = boardSettings.board_shadow;
+		    //this.shadow = boardSettings.board_shadow;
 		}
-	});
+	}, true);
 	
 	//create pieces on the board	
 	for (var i=0; i<jsonObj.active_pieces.length; i++)
 	{
+		var img = getAndLoadImage(jsonObj.active_pieces[i].image_url);
+		
+		var piece = new CAAT.ActorContainer()
+		                .setBackgroundImage(img,true)
+		                .centerAt(jsonObj.active_pieces[i].position[0], jsonObj.active_pieces[i].position[1])
+		                .setRotation(jsonObj.active_pieces[i].rotation);
+		
+		/*
 		var piece = canvas.display.image({
 			x: jsonObj.active_pieces[i].position[0],
 			y: jsonObj.active_pieces[i].position[1],
@@ -207,12 +237,13 @@ function loadBoard( jsonObj )
 			image: jsonObj.active_pieces[i].image_url,
 			rotation: jsonObj.active_pieces[i].rotation
 		});
+		*/
 		
 		activePieces.push(piece);
 		
 		board.addChild(piece);
 		
-		piece.zIndex = jsonObj.active_pieces[i].z_index;
+		board.setZOrder(piece, jsonObj.active_pieces[i].z_index);
 		piece._atge_removable = jsonObj.active_pieces[i].user_removable;
 		piece._atge_name = jsonObj.active_pieces[i].name;
 		piece._atge_image = jsonObj.active_pieces[i].image_url;
@@ -223,6 +254,7 @@ function loadBoard( jsonObj )
 	//create 'clone-able' pieces
 	for (var i=0; i<jsonObj.addable_pieces.length; i++)
 	{
+		/*
 		var piece = canvas.display.image({
 			x: jsonObj.addable_pieces[i].position[0],
 			y: jsonObj.addable_pieces[i].position[1],
@@ -231,110 +263,98 @@ function loadBoard( jsonObj )
 			image: jsonObj.addable_pieces[i].image_url,
 			rotation: jsonObj.addable_pieces[i].rotation
 		});
+		*/
 		
+		var img = getAndLoadImage(jsonObj.addable_pieces[i].image_url);
+		
+		var piece = new CAAT.ActorContainer()
+		                .setBackgroundImage(img,true)
+		                .centerAt(jsonObj.addable_pieces[i].position[0], jsonObj.addable_pieces[i].position[1])
+		                .setRotation(jsonObj.addable_pieces[i].rotation);
+						
 		addablePieces[ jsonObj.addable_pieces[i].name ] = piece;
+				
+		board.setZOrder(piece, jsonObj.addable_pieces[i].z_index);
 		piece._atge_removable = jsonObj.addable_pieces[i].user_removable;
 		piece._atge_name = jsonObj.addable_pieces[i].name;
 		piece._atge_image = jsonObj.addable_pieces[i].image_url;
+		
+		setPieceEvents(piece);
 	}
+	
 	
 	//create menu
 	createMenu();
 	
-	/*
-	board.bind("click tap", function(ev) { 
-		if (ev.which == 2)
-			board.scale(1.5,1.5);
-	});
-	*/
-	
 	//add the finished game board to the canvas
 	canvas.addChild(board);
 	
-	menuButton.zIndex="front";
+	canvas.setZOrder(menuButton,99999);
 }
 
 function initActionGuiObj()
-{
-	//create base gui objects
-	actionGuiObj = canvas.display.image({
-		x: 0,
-		y: 0,
-		origin: { x: "top", y: "left" },
-		shadow: "3 3 10 #000",
-		image: "../images/gui_piece_center.png"
-	});
+{		
+	actionGuiObj = new CAAT.ActorContainer();
+	actionGuiObj.setBounds(0,0,32,16);
 	
-	var remove = canvas.display.image({
-		x: 0,
-		y: 2,
-		origin: { x: "top", y: "left" },
-		shadow: "3 3 10 #005",
-		image: "../images/gui_piece_remove.png"
-	});
-	
-	var rotate = canvas.display.image({
-		x: 17,
-		y: 2,
-		origin: { x: "top", y: "left" },
-		shadow: "3 3 10 #005",
-		image: "../images/gui_piece_rotate.png"
-	});
+	var removeimg = getAndLoadImage("../images/gui_piece_remove.png");		
+	var remove = new CAAT.ActorContainer()
+	                .setBackgroundImage(removeimg,true)
+	                .setLocation(0,2);
+	                
+	var rotimg = getAndLoadImage("../images/gui_piece_rotate.png");		
+	var rotate = new CAAT.ActorContainer()
+	                .setBackgroundImage(rotimg,true)
+	                .setLocation(17,2);
 	
 	actionGuiObj.addChild(remove);
 	actionGuiObj.addChild(rotate);
 	
-	//HACK : ZINDEX DOES NOT WORK CORRECTLY WITH BIND CLICK TAP, SO USING DRAGSTART
-	remove.dragAndDrop({ start: function() {
-		//console.log("remove");
-		this.dragging=false;
+	remove.mouseClick = function(m) {
 		if (selectedPiece!=null && selectedPiece._atge_removable)
 		{
 			canvas.removeChild(actionGuiObj);
 			
-			selectedPiece.fadeOut(100, "linear", function () {
-				removePieceFromBoard(this);
-			});
+			//selectedPiece.fadeOut(100, "linear", function () {
+				removePieceFromBoard(selectedPiece);
+			//});
 			
 			selectedPiece = null;
 		}
-	}});
+	};
 	
-	rotate.dragAndDrop({ start: function() {
-		//console.log("rotate");
-		this.dragging=false;
+	rotate.mouseClick = function(m) {
 		if (selectedPiece!=null)
 		{
-			//HACK : NEED WAY TO DETERMINE IF ANIMATION IS STILL RUNING
-			//selectedPiece.animate({rotation: selectedPiece.rotation+45}, 100, "linear");
-			selectedPiece.rotation += 45;
+			selectedPiece.setRotation(selectedPiece.rotationAngle+Math.PI/4);
 		}
-	}});
+	};
 }
 
 function setPieceEvents(piece)
 {
-	piece.dragAndDrop({
+    enableBasicDrag(piece, true, {
 		start: function () {
 			hideMenu();
 			
 			//apply visual styles and show line
-			this.shadow = boardSettings.piece_interact_shadow;
-			this.scale(boardSettings.piece_interact_scale, boardSettings.piece_interact_scale);
-			this.opacity = boardSettings.piece_interact_opacity;
+			//this.shadow = boardSettings.piece_interact_shadow;
+			this.setAlpha(boardSettings.piece_interact_opacity);
+			this.setScale(boardSettings.piece_interact_scale, boardSettings.piece_interact_scale);
+			
 			
 			if (boardSettings.show_move_line)
 			{
-				moveTapeObj.end = {x: this.x, y: this.y};
-				moveTapeObj.start = {x: this.x, y: this.y};
+				moveTapeObj.getPath().setInitialPosition(this.x+this.width/2, this.y+this.width/2);
+				moveTapeObj.getPath().setFinalPosition(this.x+this.width/2, this.y+this.width/2);
 				board.addChild(moveTapeObj);
 			}
-			
-			this.zIndex = "front";
-			
+						
+			board.setZOrder(this,99999);
+						
 			if (boardSettings.show_move_line)
-				moveTapeObj.zIndex = "front";
-			
+				board.setZOrder(moveTapeObj,99999);
+						
 			//show/hide action gui if applicable
 			if (this != selectedPiece)
 			{
@@ -344,17 +364,19 @@ function setPieceEvents(piece)
 				}
 				selectedPiece = this;
 				canvas.addChild(actionGuiObj);
-				actionGuiObj.x = board.x+this.x-this.width/2;
-				actionGuiObj.y = board.y+this.y+this.height/2;
+				actionGuiObj.x = board.x+this.x;
+				actionGuiObj.y = board.y+this.y+this.height;
 			}
 			else
 			{
 				selectedPiece = null;
 				canvas.removeChild(actionGuiObj);
 			}
+			
 		},
 		move: function () {	
-			moveTapeObj.end = {x: this.x, y: this.y};
+			
+			moveTapeObj.getPath().setFinalPosition(this.x+this.width/2, this.y+this.width/2);
 			
 			//hide action gui since user is moving the piece
 			if (this == selectedPiece)
@@ -362,14 +384,94 @@ function setPieceEvents(piece)
 				selectedPiece = null;
 				canvas.removeChild(actionGuiObj);
 			}
+			
 		},
 		end: function () {
+            this.setScale(1,1);
+            this.setAlpha(1);
+			/*
 			this.shadow = boardSettings.piece_shadow;
-			this.scale(1.0, 1.0);
-			this.opacity = 1.0;
-			
+			*/
 			if (boardSettings.show_move_line)
-				board.removeChild(moveTapeObj);
+				board.removeChild(moveTapeObj);				
 		}
 	});
+
 }
+
+
+//CAAT UTILS
+function enableBasicDrag(obj, allowRotation, handlersObj, disableCursorChange)
+{
+    obj.enableDrag();
+    obj._atge_mouseDrag = obj.mouseDrag;
+    obj._atge_mouseUp = obj.mouseUp;
+    obj._atge_mouseDown = obj.mouseDown;
+    
+    obj._atge_mouseDragN = handlersObj.move;
+    obj._atge_mouseUpN = handlersObj.end;
+    obj._atge_mouseDownN = handlersObj.start;
+	
+	if (disableCursorChange)
+	{
+	    obj._atge_mouseEnter = obj.mouseEnter;
+	    obj.mouseEnter = function(mouseEvent) {
+	        obj._atge_mouseEnter(mouseEvent);
+	        CAAT.setCursor('default');
+	    };
+	}
+	
+	//start
+	if (handlersObj && handlersObj.start)
+	{
+	    obj.mouseDown = function(mouseEvent) {
+            this._atge_mouseDownN(mouseEvent);
+            if (this._atge_mouseDown)
+                this._atge_mouseDown(mouseEvent);
+        };
+	}
+	
+	//end
+	if (handlersObj && handlersObj.end)
+	{
+	    obj.mouseUp = function(mouseEvent) {
+            this._atge_mouseUpN(mouseEvent);
+            if (this._atge_mouseUp)
+                this._atge_mouseUp(mouseEvent);
+        };
+	}
+		
+    //move
+    if (allowRotation)
+    {
+        obj.mouseDrag = function(mouseEvent) {
+            if (this._atge_mouseDragN)
+                this._atge_mouseDragN(mouseEvent);
+            
+            if (!mouseEvent.isShiftDown())
+            {
+                 this._atge_mouseDrag(mouseEvent);   
+            }
+        };
+    }
+    else
+    {
+        obj.mouseDrag = function(mouseEvent) {
+            if (this._atge_mouseDragN)
+                this._atge_mouseDragN(mouseEvent);
+                
+            if (!mouseEvent.isShiftDown() && !mouseEvent.isControlDown())
+            {
+                 this._atge_mouseDrag(mouseEvent);   
+            }
+        };
+    }
+}
+
+function getAndLoadImage(imageurl)
+{
+    var img = $('<img src="'+imageurl+'" />');
+    $(director.canvas).append(img);
+    return img[0];
+}
+
