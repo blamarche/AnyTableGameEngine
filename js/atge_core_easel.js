@@ -417,7 +417,7 @@ function createPieceBitmap(url)
 
 function createShadowFromString(s)
 {
-    if (s=="") return null;
+    if (s=="" || Touch.isSupported()) return null;
     
     var sarr = s.split(" ");
     
