@@ -8,18 +8,15 @@ $(document).ready(function(){
 	//initialize canvas
 	$("#canvas").attr("width", window.innerWidth);
 	$("#canvas").attr("height", window.innerHeight);
-	
-	/*
-	canvas = oCanvas.create({
-		canvas: "#canvas",
-		background: "#225",
-		fps: 25
-	});
-	*/
-	
-    director = new CAAT.Director().initialize(window.innerWidth, window.innerHeight, document.getElementById('canvas'));
-	canvas = director.createScene().setFillStyle('#225');
-	director.loop(25);
+		
+	//find canvas 
+    var domcanvas= document.getElementById("canvas");
+    canvas = new Stage(domcanvas);
+
+    if (Touch.isSupported()) { Touch.enable(stage); }
+
+    Ticker.setFPS(30);
+    Ticker.addListener(canvas);
 	
 	$("#chess").click(function(){ $(this).parent().css("display","none"); loadBoard(chessBoardJSON); });
 	$("#oware").click(function(){ $(this).parent().css("display","none"); loadBoard(owareBoardJSON); });
@@ -598,14 +595,14 @@ var chessBoardJSON = {
 		"show_move_line": true,
 		"table_color": "#f00",
 		"board_image_url": "../images/chess/board.png",
-		"board_shadow": "2 2 0 #000",
-		"board_interact_shadow": "2 2 0 #0ff",
+		"board_shadow": "2 2 0 rgba(0,0,0,0.3)",
+		"board_interact_shadow": "2 2 0 rgba(0,255,255,0.3)",
 		"turn_number": 0,
 		"grid_size": 50, //this is unsupported for now (0 for no grid)
-		"piece_shadow": "3 3 10 #004",
-		"piece_interact_shadow": "6 6 10 #007",
+		"piece_shadow": "3 3 10 rgba(0,0,0,0.3)",
+		"piece_interact_shadow": "6 6 10 rgba(0,0,0,0.3)",
 		"piece_interact_scale": 1.07,
-		"piece_interact_opacity": 0.95,
+		"piece_interact_opacity": 0.90,
 		"notes": "<div>Here is an example note field</div><div>And another line of the note field</div>",
 		"chat": "<div>Nick1: Sup</div><div>Nick2: Yo!</div>",
 		"rolls": "<div>2011-12-12 19:05:23 - Nick1 rolled a 6 from 2 12-sided dice.</div><div>2011-12-14 11:14:57 - Nick2 rolled a 14 from 3 6-sided dice.</div>"
