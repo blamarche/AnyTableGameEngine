@@ -13,7 +13,7 @@ $(document).ready(function(){
     var domcanvas= document.getElementById("canvas");
     canvas = new Stage(domcanvas);
 
-    if (Touch.isSupported()) { Touch.enable(stage); }
+    if (Touch.isSupported()) { Touch.enable(canvas); }
 
     Ticker.setFPS(30);
     Ticker.addListener(canvas);
