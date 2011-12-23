@@ -8,7 +8,7 @@ var boardSettings = null;
 var boardAddables = null;
 var activePieces = [];
 var addablePieces = {};
-var canvas, moveTapeObj, board = null, actionGuiObj, selectedPiece = null, menuButton = null;
+var canvas, moveTapeObj, board = null, actionGuiObj, selectedPiece = null, menuButton = null, zoomInButton = null, zoomOutButton = null;
 
 //game functions
 function removePieceFromBoard( piece )
@@ -130,14 +130,13 @@ function loadBoard( jsonObj )
 {
     canvas.enableMouseOver();
 
-	//menu button
+	//buttons
 	if (menuButton == null)
 	{
 		menuButton = new Bitmap("../images/gui_menu_button.png");
 		menuButton.x = 0;
 		menuButton.y = 0;
 		menuButton.shadow = createShadowFromString("2 2 2 #000");
-		
 		canvas.addChild(menuButton);
 		
 		menuButton.onClick = function(evt) {
@@ -145,9 +144,32 @@ function loadBoard( jsonObj )
 		};
 		
 		$("#hide_menu").click(hideMenu);
+		$("#menu").height(canvas.height); //TODO: HACK : touch-scroll plugin issue?
 		
-		//HACK : touch-scroll plugin issue?
-		$("#menu").height(canvas.height);
+		//---
+		zoomInButton = new Bitmap("../images/gui_menu_zoomin.png");
+		zoomInButton.x = canvas.canvas.width-32;
+		zoomInButton.y = 0;
+		zoomInButton.shadow = createShadowFromString("-2 2 2 #000");
+		canvas.addChild(zoomInButton);
+		
+		zoomInButton.onClick = function(evt) {
+		    board.scaleX = (board.scaleX >= 3.0) ? board.scaleX : board.scaleX+0.5 ;
+		    board.scaleY = (board.scaleY >= 3.0) ? board.scaleY : board.scaleY+0.5 ;
+		    //board.scaleY = 0.5;
+		};
+		
+		//---
+		zoomOutButton = new Bitmap("../images/gui_menu_zoomout.png");
+		zoomOutButton.x = canvas.canvas.width-64;
+		zoomOutButton.y = 0;
+		zoomOutButton.shadow = createShadowFromString("-2 2 2 #000");
+		canvas.addChild(zoomOutButton);
+		
+		zoomOutButton.onClick = function(evt) {
+		    board.scaleX = (board.scaleX <= 0.5) ? board.scaleX : board.scaleX-0.5 ;
+		    board.scaleY = (board.scaleY <= 0.5) ? board.scaleY : board.scaleY-0.5 ;
+		};
 	}
 	
 	//create gui object for piece interaction
@@ -316,8 +338,9 @@ function setPieceEvents(piece)
 				selectedPiece = this;
                 actionGuiObj._atge_remove.visible = selectedPiece._atge_removable;
 				canvas.addChild(actionGuiObj);
-				actionGuiObj.x = board.x+this.x-this.regX;
-				actionGuiObj.y = board.y+this.y+this.regY;
+				
+				actionGuiObj.x = board.x+this.x*board.scaleX-this.regX*board.scaleX;
+				actionGuiObj.y = board.y+this.y*board.scaleX+this.regY*board.scaleX;
 				
 			}
 			else
@@ -366,10 +389,10 @@ function enableBasicDrag(bitmap, handlersObj, moveParent, gridLocked)
     bitmap._atge_dragMoveParent = moveParent;
     
     bitmap.onPress = function(evt) {
-        var offset = {x:evt.target.x-evt.stageX, y:evt.target.y-evt.stageY};
+        var offset = {x:evt.target.x-evt.stageX/board.scaleX, y:evt.target.y-evt.stageY/board.scaleY};
         if (evt.target._atge_dragMoveParent) {
-            offset.x = evt.target.parent.x-evt.stageX;
-            offset.y = evt.target.parent.y-evt.stageY;
+            offset.x = evt.target.parent.x-evt.stageX/board.scaleX;
+            offset.y = evt.target.parent.y-evt.stageY/board.scaleY;
         }
 
         //callback
@@ -383,8 +406,8 @@ function enableBasicDrag(bitmap, handlersObj, moveParent, gridLocked)
             }
             
             var x, y;
-            x = ev.stageX+offset.x;
-            y = ev.stageY+offset.y;
+            x = (ev.stageX/board.scaleX+offset.x);
+            y = (ev.stageY/board.scaleX+offset.y);
                 
             if (gridLocked)
             {
