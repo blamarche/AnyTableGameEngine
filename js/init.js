@@ -15,7 +15,7 @@ $(document).ready(function(){
 
     if (Touch.isSupported()) { Touch.enable(canvas); }
 
-    Ticker.setFPS(30);
+    Ticker.setFPS(45);
     Ticker.addListener(canvas);
 	
 	$("#chess").click(function(){ $(this).parent().css("display","none"); loadBoard(chessBoardJSON); });

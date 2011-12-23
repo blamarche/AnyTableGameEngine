@@ -144,15 +144,7 @@ function loadBoard( jsonObj )
 	initActionGuiObj();
 	
 	//create move 'tape' object to show relative piece movement length
-	/*
-	moveTapeObj = canvas.display.line({
-		start: { x: 0, y: 0 },
-		end: { x: 1, y: 1 },
-		stroke: "5px #f00",
-		cap: "round",
-		opacity: 0.35
-	});
-	*/
+	moveTapeObj = new Shape();
 	
 	//reset board if exists
 	if (board != null)
@@ -186,6 +178,7 @@ function loadBoard( jsonObj )
 				selectedPiece = null;
 			}
 			this.shadow = createShadowFromString(boardSettings.board_interact_shadow);
+			
 		},
 		move: function () {	},
 		end: function () {
@@ -261,18 +254,21 @@ function initActionGuiObj()
 		{
 			canvas.removeChild(actionGuiObj);
 			
-			//selectedPiece.fadeOut(100, "linear", function () {
-				removePieceFromBoard(selectedPiece);
-			//});
-			
-			selectedPiece = null;
+			Tween.get(selectedPiece).to({alpha: 0, 
+			                    scaleX: 0.5, 
+			                    scaleY: 0.5},200).call(function() {
+			                        removePieceFromBoard(selectedPiece);
+			                    });
+            selectedPiece = null;
 		}
 	};
 	
 	rotate.onClick = function(evt) {
 	    if (selectedPiece!=null)
 		{
-			selectedPiece.rotation += 45;
+			if (!selectedPiece.tweenjs_count)
+			    Tween.get(selectedPiece).to({rotation: selectedPiece.rotation+45},100);
+			//selectedPiece.rotation += 45;
 		}
 	};
 }
@@ -285,24 +281,20 @@ function setPieceEvents(piece)
 			
 			//apply visual styles and show line
 			this.shadow = createShadowFromString(boardSettings.piece_interact_shadow);
-			this.scaleX=this.scaleY=boardSettings.piece_interact_scale;
-			this.alpha = boardSettings.piece_interact_opacity;
+			Tween.get(this).to({alpha: boardSettings.piece_interact_opacity, 
+			                    scaleX: boardSettings.piece_interact_scale, 
+			                    scaleY: boardSettings.piece_interact_scale},200);//.call(onComplete).play(nextTween);
 			
-			/*
-			if (boardSettings.show_move_line)
-			{
-				moveTapeObj.end = {x: this.x, y: this.y};
-				moveTapeObj.start = {x: this.x, y: this.y};
-				board.addChild(moveTapeObj);
-			}
-			*/
 			
 			board.addChild(this); //zindex
 			
-			/*
 			if (boardSettings.show_move_line)
-				moveTapeObj.zIndex = "front";
-			*/
+			{
+				moveTapeObj.graphics.clear();
+				moveTapeObj._sx = this.x;
+				moveTapeObj._sy = this.y;
+				board.addChild(moveTapeObj);
+			}
 			
 			//show/hide action gui if applicable
 			if (this != selectedPiece)
@@ -327,9 +319,12 @@ function setPieceEvents(piece)
 			}
 		},
 		move: function () {	
-			/*
-			moveTapeObj.end = {x: this.x, y: this.y};
-			*/
+			
+			var g = moveTapeObj.graphics;
+			g.clear();
+            g.setStrokeStyle(3, "round", "round");
+            g.beginStroke("#C00");
+            g.moveTo(moveTapeObj._sx, moveTapeObj._sy).lineTo(this.x, this.y);
 			
 			//hide action gui since user is moving the piece
 			if (this == selectedPiece)
@@ -340,12 +335,13 @@ function setPieceEvents(piece)
 		},
 		end: function () {
 			this.shadow = createShadowFromString(boardSettings.piece_shadow);
-			this.scaleX=this.scaleY=1.0;
-			this.alpha = 1.0;
-			/*
+			Tween.get(this).to({alpha: 1.0, 
+			                    scaleX: 1.0, 
+			                    scaleY: 1.0},200);//.call(onComplete).play(nextTween);
+			
+			
 			if (boardSettings.show_move_line)
 				board.removeChild(moveTapeObj);
-			*/
 		}
 	});
     
@@ -363,9 +359,8 @@ function enableBasicDrag(bitmap, handlersObj, moveParent)
     bitmap.onPress = function(evt) {
         var offset = {x:evt.target.x-evt.stageX, y:evt.target.y-evt.stageY};
         if (evt.target._atge_dragMoveParent) {
-            //TODO: BUG : why does above offset go back to 0,0 every time
-            offset.x = evt.target.x;
-            offset.y = evt.target.y;
+            offset.x = evt.target.parent.x-evt.stageX;
+            offset.y = evt.target.parent.y-evt.stageY;
         }
 
         //callback
