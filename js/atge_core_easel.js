@@ -1,3 +1,8 @@
+/*
+TODO: Grid based movement snapping
+TODO: Some way to scale/zoom the board
+*/
+
 //global vars for the game engine
 var boardSettings = null;
 var boardAddables = null;
@@ -27,10 +32,15 @@ function addPieceToBoard( name )
 	if (typeof piece != "undefined" && piece!=null)
 	{
 		var newpiece = piece.clone();
-		if (newpiece.x==-1 && newpiece.y==-1)
+		if (boardSettings.new_piece_position != null)
 		{
-			newpiece.x = board.getChildAt(0).image.width/2;//canvas.mouse.x - board.x;
-			newpiece.y = board.getChildAt(0).image.height/2;//canvas.mouse.y - board.y;
+		    newpiece.x = boardSettings.new_piece_position[0];
+		    newpiece.y = boardSettings.new_piece_position[1];
+		}
+		else if (newpiece.x==-1 && newpiece.y==-1) 
+		{
+		    newpiece.x = board.getChildAt(0).image.width/2; //canvas.mouse.x - board.x;
+		    newpiece.y = board.getChildAt(0).image.height/2; //canvas.mouse.y - board.y;
 		}
 		board.addChild(newpiece);
 		activePieces.push(newpiece);
@@ -268,7 +278,6 @@ function initActionGuiObj()
 		{
 			if (!selectedPiece.tweenjs_count)
 			    Tween.get(selectedPiece).to({rotation: selectedPiece.rotation+45},100);
-			//selectedPiece.rotation += 45;
 		}
 	};
 }
@@ -343,13 +352,13 @@ function setPieceEvents(piece)
 			if (boardSettings.show_move_line)
 				board.removeChild(moveTapeObj);
 		}
-	});
+	}, false, (boardSettings.grid_size != 0));
     
     
 	
 }
 
-function enableBasicDrag(bitmap, handlersObj, moveParent)
+function enableBasicDrag(bitmap, handlersObj, moveParent, gridLocked)
 {
     bitmap._atge_dragStart = handlersObj.start;
     bitmap._atge_dragMove = handlersObj.move;
@@ -368,14 +377,35 @@ function enableBasicDrag(bitmap, handlersObj, moveParent)
         
         //move
         evt.onMouseMove = function(ev) {
+            var targ = evt.target;
             if (evt.target._atge_dragMoveParent) {
-                evt.target.parent.x = ev.stageX+offset.x;
-                evt.target.parent.y = ev.stageY+offset.y;
+                targ = evt.target.parent;
             }
-            else {
-                evt.target.x = ev.stageX+offset.x;
-                evt.target.y = ev.stageY+offset.y;
+            
+            var x, y;
+            x = ev.stageX+offset.x;
+            y = ev.stageY+offset.y;
+                
+            if (gridLocked)
+            {
+                if (x > targ.x + boardSettings.grid_size/2)
+                    x = targ.x + boardSettings.grid_size;
+                else if (x < targ.x - boardSettings.grid_size/2)
+                    x = targ.x - boardSettings.grid_size;
+                else 
+                    x = targ.x;
+                    
+                if (y > targ.y + boardSettings.grid_size/2)
+                    y = targ.y + boardSettings.grid_size;
+                else if (y < targ.y - boardSettings.grid_size/2)
+                    y = targ.y - boardSettings.grid_size;
+                else 
+                    y = targ.y;
             }
+            
+            targ.x = x;
+            targ.y = y;
+            
             //callback
             evt.target._atge_dragMove();
         };
@@ -386,15 +416,6 @@ function enableBasicDrag(bitmap, handlersObj, moveParent)
             evt.target._atge_dragEnd();
         }
     };
-    /*
-    bitmap.onMouseOver = function(evt) {
-        bitmap.scaleX = bitmap.scaleY = 1.2;
-        console.log(this);
-    };
-    bitmap.onMouseOut = function(evt) {
-        bitmap.scaleX = bitmap.scaleY = 1;
-    };
-    */
     
 }
 

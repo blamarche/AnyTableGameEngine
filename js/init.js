@@ -15,7 +15,7 @@ $(document).ready(function(){
 
     if (Touch.isSupported()) { Touch.enable(canvas); }
 
-    Ticker.setFPS(45);
+    Ticker.setFPS(40);
     Ticker.addListener(canvas);
 	
 	$("#chess").click(function(){ $(this).parent().css("display","none"); loadBoard(chessBoardJSON); });
@@ -34,7 +34,8 @@ var owareBoardJSON = {
       "board_shadow":"2 2 0 #000",
       "board_interact_shadow":"2 2 0 #0ff",
       "turn_number":0,
-      "grid_size":0,
+      "grid_size":0, //0 = disabled
+      "new_piece_position": null,
       "piece_shadow":"2 2 5 #111",
       "piece_interact_shadow":"4 4 5 #222",
       "piece_interact_scale":1.07,
@@ -598,7 +599,8 @@ var chessBoardJSON = {
 		"board_shadow": "2 2 0 rgba(0,0,0,0.3)",
 		"board_interact_shadow": "2 2 0 rgba(0,255,255,0.3)",
 		"turn_number": 0,
-		"grid_size": 50, //this is unsupported for now (0 for no grid)
+		"grid_size": 50, //0 for no grid
+		"new_piece_position": [175, 175],
 		"piece_shadow": "3 3 10 rgba(0,0,0,0.3)",
 		"piece_interact_shadow": "6 6 10 rgba(0,0,0,0.3)",
 		"piece_interact_scale": 1.07,
