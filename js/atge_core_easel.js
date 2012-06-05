@@ -1,6 +1,10 @@
 /*
-TODO: Grid based movement snapping
-TODO: Some way to scale/zoom the board
+TODO: Dice rolls
+TODO: Card Deck / Random Draw / Shuffle
+TODO: Categorized Pieces
+TODO: Game Rules
+TODO: Mobile-optimized UI
+TODO: Custom game-type init script execution (for random maps, etc)
 */
 
 //global vars for the game engine
