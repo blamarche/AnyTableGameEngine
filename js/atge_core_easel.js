@@ -152,7 +152,8 @@ function loadBoard( jsonObj )
 		
 		//---
 		zoomInButton = new Bitmap("../images/gui_menu_zoomin.png");
-		zoomInButton.x = canvas.canvas.width-32;
+		//zoomInButton.x = canvas.canvas.width-32;
+		zoomInButton.x = window.innerWidth-32;
 		zoomInButton.y = 0;
 		zoomInButton.shadow = createShadowFromString("-2 2 2 #000");
 		canvas.addChild(zoomInButton);
@@ -165,7 +166,8 @@ function loadBoard( jsonObj )
 		
 		//---
 		zoomOutButton = new Bitmap("../images/gui_menu_zoomout.png");
-		zoomOutButton.x = canvas.canvas.width-64;
+		//zoomOutButton.x = canvas.canvas.width-64;
+		zoomOutButton.x = window.innerWidth-64;
 		zoomOutButton.y = 0;
 		zoomOutButton.shadow = createShadowFromString("-2 2 2 #000");
 		canvas.addChild(zoomOutButton);

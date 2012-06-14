@@ -6,8 +6,12 @@
 //init
 $(document).ready(function(){
 	//initialize canvas
-	$("#canvas").attr("width", window.innerWidth);
-	$("#canvas").attr("height", window.innerHeight);
+	var wh = window.innerWidth;
+	if (window.innerHeight>wh)
+	    wh = window.innerWidth;
+	
+	$("#canvas").attr("width", wh);
+	$("#canvas").attr("height", wh);
 		
 	//find canvas 
     var domcanvas= document.getElementById("canvas");
