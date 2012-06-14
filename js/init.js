@@ -8,7 +8,7 @@ $(document).ready(function(){
 	//initialize canvas
 	var wh = window.innerWidth;
 	if (window.innerHeight>wh)
-	    wh = window.innerWidth;
+	    wh = window.innerHeight;
 	
 	$("#canvas").attr("width", wh);
 	$("#canvas").attr("height", wh);
@@ -31,16 +31,16 @@ $(document).ready(function(){
 var mpBoardJSON = {
 	"settings": {
 		"atge_format_version": "1.0.0",
-		"show_move_line": true,
+		"show_move_line": false,
 		"table_color": "#f00",
 		"board_image_url": "../images/micropul/board.png",
-		"board_shadow": "2 2 0 rgba(0,0,0,0.3)",
+		"board_shadow": "0 0 0 rgba(0,0,0,0.3)",
 		"board_interact_shadow": "2 2 0 rgba(0,255,255,0.3)",
 		"turn_number": 0,
 		"grid_size": 0, //0 for no grid
 		"new_piece_position": [175, 175],
 		"piece_shadow": "0 0 0 rgba(0,0,0,0.3)",
-		"piece_interact_shadow": "6 6 10 rgba(255,255,0,0.3)",
+		"piece_interact_shadow": "6 6 10 rgba(0,255,255,0.3)",
 		"piece_interact_scale": 1.00,
 		"piece_interact_opacity": 0.90,
 		"shuffle_active": true,

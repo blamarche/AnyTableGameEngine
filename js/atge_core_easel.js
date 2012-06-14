@@ -49,6 +49,7 @@ function addPieceToBoard( name )
 		board.addChild(newpiece);
 		activePieces.push(newpiece);
 		
+		//TODO: add flip properties, rotation amount, etc
 		newpiece._atge_removable = piece._atge_removable;
 		newpiece._atge_name = piece._atge_name;
 		newpiece._atge_image = piece._atge_image;
@@ -255,7 +256,10 @@ function loadBoard( jsonObj )
 		piece._atge_name = jsonObj.active_pieces[i].name;
 		piece._atge_image = jsonObj.active_pieces[i].image_url;
 		piece._atge_back_image = jsonObj.active_pieces[i].back_image_url;
-		//piece._atge_flipped = jsonObj.active_pieces[i].flipped;
+        
+        if (typeof jsonObj.active_pieces[i].rotation_amount == "undefined")
+            jsonObj.active_pieces[i].rotation_amount = 90;
+		piece._atge_rotation = jsonObj.active_pieces[i].rotation_amount;
 		
 		piece._atge_flip = function() {
 		    this._atge_flipped = !this._atge_flipped;
@@ -292,6 +296,11 @@ function loadBoard( jsonObj )
 		piece._atge_removable = jsonObj.addable_pieces[i].user_removable;
 		piece._atge_name = jsonObj.addable_pieces[i].name;
 		piece._atge_image = jsonObj.addable_pieces[i].image_url;
+		piece._atge_back_image = jsonObj.active_pieces[i].back_image_url;
+		
+		if (typeof jsonObj.addable_pieces[i].rotation_amount == "undefined")
+            jsonObj.addable_pieces[i].rotation_amount = 90;
+		piece._atge_rotation = jsonObj.addable_pieces[i].rotation_amount;
 		
 		piece._atge_flip = function() {
 		    this._atge_flipped = !this._atge_flipped;
@@ -372,8 +381,9 @@ function initActionGuiObj()
 	rotate.onClick = function(evt) {
 	    if (selectedPiece!=null)
 		{
+		    animTime = 200*(selectedPiece._atge_rotation / 45.0);
 			if (!selectedPiece.tweenjs_count)
-			    Tween.get(selectedPiece).to({rotation: selectedPiece.rotation+45},100);
+			    Tween.get(selectedPiece).to({rotation: selectedPiece.rotation+selectedPiece._atge_rotation},100);
 		}
 	};
 }
