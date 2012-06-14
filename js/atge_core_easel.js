@@ -194,10 +194,10 @@ function loadBoard( jsonObj )
 	boardAddables = jsonObj.addable_pieces;
 	
 	//html elements
-	$("#notes").html(boardSettings.notes);
-	$("#rolls").html(boardSettings.rolls);
-	$("#chat").html(boardSettings.chat);
-	$("#turn").html(boardSettings.turn_number);
+	//$("#notes").html(boardSettings.notes);
+	//$("#rolls").html(boardSettings.rolls);
+	//$("#chat").html(boardSettings.chat);
+	//$("#turn").html(boardSettings.turn_number);
 	
 	//create parent board
 	board = new Container();
@@ -222,10 +222,23 @@ function loadBoard( jsonObj )
 		}
 	}, true);
 	
+	//shuffle order
+	if (jsonObj.settings.shuffle_active)
+	{
+	    function randOrd(){
+            return (Math.round(Math.random())-0.5);
+        }
+        jsonObj.active_pieces.sort(randOrd);
+	}
+	
 	//create pieces on the board	
 	for (var i=0; i<jsonObj.active_pieces.length; i++)
 	{
-		var piece = createPieceBitmap(jsonObj.active_pieces[i].image_url);
+	    var url=jsonObj.active_pieces[i].image_url;
+	    if (jsonObj.active_pieces[i].flipped)
+	        url=jsonObj.active_pieces[i].back_image_url;
+	    
+		var piece = createPieceBitmap(url, jsonObj.active_pieces[i].flipped);
 		piece.x = jsonObj.active_pieces[i].position[0];
 		piece.y = jsonObj.active_pieces[i].position[1];
 		piece.rotation= jsonObj.active_pieces[i].rotation;
@@ -239,6 +252,23 @@ function loadBoard( jsonObj )
 		piece._atge_removable = jsonObj.active_pieces[i].user_removable;
 		piece._atge_name = jsonObj.active_pieces[i].name;
 		piece._atge_image = jsonObj.active_pieces[i].image_url;
+		piece._atge_back_image = jsonObj.active_pieces[i].back_image_url;
+		//piece._atge_flipped = jsonObj.active_pieces[i].flipped;
+		
+		piece._atge_flip = function() {
+		    this._atge_flipped = !this._atge_flipped;
+			
+			if (this._atge_flipped)
+			{
+			    this.image = new Image();
+			    this.image.src = this._atge_back_image;
+			}
+			else
+			{
+			    this.image = new Image();
+			    this.image.src = this._atge_image;
+			}
+		};
 		
 		setPieceEvents(piece);
 	}
@@ -246,7 +276,11 @@ function loadBoard( jsonObj )
 	//create 'clone-able' pieces
 	for (var i=0; i<jsonObj.addable_pieces.length; i++)
 	{
-	    var piece = createPieceBitmap(jsonObj.addable_pieces[i].image_url);
+	    var url=jsonObj.addable_pieces[i].image_url;
+	    if (jsonObj.addable_pieces[i].flipped)
+	        url=jsonObj.addable_pieces[i].back_image_url;
+	        
+	    var piece = createPieceBitmap(url, jsonObj.addable_pieces[i].flipped);
 		piece.x = jsonObj.addable_pieces[i].position[0];
 		piece.y = jsonObj.addable_pieces[i].position[1];
 		piece.rotation= jsonObj.addable_pieces[i].rotation;
@@ -256,6 +290,22 @@ function loadBoard( jsonObj )
 		piece._atge_removable = jsonObj.addable_pieces[i].user_removable;
 		piece._atge_name = jsonObj.addable_pieces[i].name;
 		piece._atge_image = jsonObj.addable_pieces[i].image_url;
+		
+		piece._atge_flip = function() {
+		    this._atge_flipped = !this._atge_flipped;
+			
+			if (this._atge_flipped)
+			{
+			    this.image = new Image();
+			    this.image.src = this._atge_back_image;
+			}
+			else
+			{
+			    this.image = new Image();
+			    this.image.src = this._atge_image;
+			}
+		};
+		
 	}
 	
 	//create menu
@@ -265,6 +315,8 @@ function loadBoard( jsonObj )
 	canvas.addChild(board);
 	
 	canvas.addChild(menuButton); //zindex
+	canvas.addChild(zoomInButton); //zindex
+	canvas.addChild(zoomOutButton); //zindex
 }
 
 function initActionGuiObj()
@@ -276,14 +328,21 @@ function initActionGuiObj()
 	remove.shadow = createShadowFromString("3 3 10 #005");
 	
 	var rotate = new Bitmap("../images/gui_piece_rotate.png");
-	rotate.x=17
+	rotate.x=2
 	rotate.y=2;
 	rotate.shadow = createShadowFromString("3 3 10 #005");
 	
+	var flip = new Bitmap("../images/gui_piece_flip.png");
+	flip.x=34
+	flip.y=2;
+	flip.shadow = createShadowFromString("3 3 10 #005");
+	
 	actionGuiObj.addChild(remove);
 	actionGuiObj.addChild(rotate);
+	actionGuiObj.addChild(flip);
 	actionGuiObj._atge_remove = remove;
 	actionGuiObj._atge_rotate = rotate;
+	actionGuiObj._atge_flip = flip;
 	
 	remove.onClick = function(evt) {
 	    if (selectedPiece!=null && selectedPiece._atge_removable)
@@ -296,6 +355,15 @@ function initActionGuiObj()
 			                        removePieceFromBoard(selectedPiece);
 			                    });
             selectedPiece = null;
+		}
+	};
+	
+	flip.onClick = function(evt) {
+	    if (selectedPiece!=null)
+		{
+			selectedPiece._atge_flip();
+			
+			console.log('flipped');
 		}
 	};
 	
@@ -446,10 +514,14 @@ function enableBasicDrag(bitmap, handlersObj, moveParent, gridLocked)
     
 }
 
-function createPieceBitmap(url)
+function createPieceBitmap(url, flipped)
 {
+    if (typeof flipped=="undefined")
+        flipped=false;
+
     var piece = new Bitmap(url);
     piece.image.piece = piece;
+    piece._atge_flipped = flipped;
     piece.image.onload = function(e) {
 	    this.piece.regX = this.width/2;
 	    this.piece.regY = this.height/2;

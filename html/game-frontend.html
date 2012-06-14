@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta name="viewport" content="width=device-width,height=device-height,user-scalable=no,initial-scale=1.0" />
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		
+		<script type="text/javascript" src="../js/jquery.min.js"></script>
+		<script type="text/javascript" src="../js/touch-scroll.min.js"></script>
+		<script type="text/javascript" src="../js/easel.js"></script>
+		<script type="text/javascript" src="../js/tween.js"></script>
+		<script type="text/javascript" src="../js/atge_core_easel.js"></script>
+		<script type="text/javascript" src="../js/init.js"></script>
+		
+		<link href="../css/style.css" type="text/css" rel="stylesheet" /> 
+	</head>
+	<body>
+		
+		<div id="wrapper">
+			<canvas id="canvas" width="800" height="480"></canvas>
+		</div>
+		<div id="menu">
+			<div id="menuScroll">
+				<div id="hide_menu"><img src="../images/gui_menu_hide.png" /></div>
+				
+				<div class="clearFloat"></div>
+				
+				<div class="bar" onclick="loadBoard(mpBoardJSON)">Restart Game</div>
+				<div class="info" id="turn">-</div>
+				
+			</div>
+		</div>
+	</body>
+</html>
