@@ -53,6 +53,23 @@ function addPieceToBoard( name )
 		newpiece._atge_removable = piece._atge_removable;
 		newpiece._atge_name = piece._atge_name;
 		newpiece._atge_image = piece._atge_image;
+		newpiece._atge_back_image = piece._atge_back_image;
+		newpiece._atge_flipped = false;
+
+		newpiece._atge_flip = function() {
+		    this._atge_flipped = !this._atge_flipped;
+			
+			if (this._atge_flipped)
+			{
+			    this.image = new Image();
+			    this.image.src = this._atge_back_image;
+			}
+			else
+			{
+			    this.image = new Image();
+			    this.image.src = this._atge_image;
+			}
+		};
 		
 		setPieceEvents(newpiece);
 	}

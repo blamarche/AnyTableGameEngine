@@ -33,7 +33,7 @@ var mpBoardJSON = {
 		"atge_format_version": "1.0.0",
 		"show_move_line": false,
 		"table_color": "#f00",
-		"board_image_url": "../images/micropul/board.png",
+		"board_image_url": "../images/decktet/board.png",
 		"board_shadow": "0 0 0 rgba(0,0,0,0.3)",
 		"board_interact_shadow": "2 2 0 rgba(0,255,255,0.3)",
 		"turn_number": 0,
@@ -44,469 +44,865 @@ var mpBoardJSON = {
 		"piece_interact_scale": 1.00,
 		"piece_interact_opacity": 0.90,
 		"shuffle_active": true,
+		"notes":"<div></div>",
+      	"chat":"<div></div>",
+      	"rolls":"<div></div>"
 	},
 	"addable_pieces": [
-		
+		{
+			"name":"Seed1",
+			"image_url":"../images/decktet/suit34-knot.gif",
+			"rotation":0,
+			"user_removable":true,
+			"position":[
+				200,
+				200
+			],
+			"z_index":"front"
+      	},{
+			"name":"Seed2",
+			"image_url":"../images/decktet/suit34-leaf.gif",
+			"rotation":0,
+			"user_removable":true,
+			"position":[
+				200,
+				200
+			],
+			"z_index":"front"
+      	},{
+			"name":"Seed3",
+			"image_url":"../images/decktet/suit34-moon.gif",
+			"rotation":0,
+			"user_removable":true,
+			"position":[
+				200,
+				200
+			],
+			"z_index":"front"
+      	},{
+			"name":"Seed4",
+			"image_url":"../images/decktet/suit34-suns.gif",
+			"rotation":0,
+			"user_removable":true,
+			"position":[
+				200,
+				200
+			],
+			"z_index":"front"
+      	},{
+			"name":"Seed5",
+			"image_url":"../images/decktet/suit34-wave.gif",
+			"rotation":0,
+			"user_removable":true,
+			"position":[
+				200,
+				200
+			],
+			"z_index":"front"
+      	},{
+			"name":"Seed6",
+			"image_url":"../images/decktet/suit34-wyrm.gif",
+			"rotation":0,
+			"user_removable":true,
+			"position":[
+				200,
+				200
+			],
+			"z_index":"front"
+      	}
 	],
 	"active_pieces": [
 		{
-			"name": "Start Piece",
-			"image_url": "../images/micropul/_6_5.png",
-			"back_image_url": "../images/micropul/back.png",
-			"rotation": 0,
-			"flipped": false,
-			"user_removable": false,
-			"position": [ 500, 500 ],
-			"z_index": "front"
-		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_0_0.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c1.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_0_1.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c2.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_0_2.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c3.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_0_3.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c4.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_0_4.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c5.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_0_5.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c6.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_1_0.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c7.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_1_1.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c8.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_1_2.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c9.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_1_3.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c10.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_1_4.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c11.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_1_5.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c12.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_2_0.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c13.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_2_1.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c14.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_2_2.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c15.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_2_3.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c16.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_2_4.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c17.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_2_5.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c18.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_3_0.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c19.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_3_1.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c20.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_3_2.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c21.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_3_3.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c22.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_3_4.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c23.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_3_5.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c24.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_4_0.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c25.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_4_1.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c26.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_4_2.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c27.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_4_3.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c28.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_4_4.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c29.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_4_5.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c30.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_5_0.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c32.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_5_1.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c33.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_5_2.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c34.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_5_3.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c35.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_5_4.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c36.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 140 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_5_5.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/e37.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 355 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_6_0.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/e38.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 355 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_6_1.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/e39.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 355 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_6_2.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/e40.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 355 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_6_3.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/e41.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 355 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_6_4.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/e42.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 355 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_7_0.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/e43.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 355 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_7_1.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/e44.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 355 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_7_2.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/e45.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 355 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_7_3.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c1.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 570 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_7_4.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c2.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 570 ],
 			"z_index": "front"
 		},{
 			"name": "Piece",
-			"image_url": "../images/micropul/_7_5.png",
-			"back_image_url": "../images/micropul/back.png",
+			"image_url": "../images/decktet/c3.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
 			"flipped": true,
 			"user_removable": false,
-			"position": [ 65, 90 ],
+			"position": [ 105, 570 ],
 			"z_index": "front"
 		},{
-			"name": "Stone",
-			"image_url": "../images/micropul/stone.png",
-			"back_image_url": "../images/micropul/back.png",
+			"name": "Piece",
+			"image_url": "../images/decktet/c4.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
-			"flipped": false,
+			"flipped": true,
 			"user_removable": false,
-			"position": [ 15, 180 ],
+			"position": [ 105, 570 ],
 			"z_index": "front"
 		},{
-			"name": "Stone",
-			"image_url": "../images/micropul/stone.png",
-			"back_image_url": "../images/micropul/back.png",
+			"name": "Piece",
+			"image_url": "../images/decktet/c5.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
-			"flipped": false,
+			"flipped": true,
 			"user_removable": false,
-			"position": [ 15, 210 ],
+			"position": [ 105, 570 ],
 			"z_index": "front"
 		},{
-			"name": "Stone",
-			"image_url": "../images/micropul/stone.png",
-			"back_image_url": "../images/micropul/back.png",
+			"name": "Piece",
+			"image_url": "../images/decktet/c6.png",
+			"back_image_url": "../images/decktet/back.png",
 			"rotation": 0,
-			"flipped": false,
+			"flipped": true,
 			"user_removable": false,
-			"position": [ 15, 240 ],
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c7.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c8.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c9.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c10.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c11.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c12.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c13.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c14.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c15.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c16.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c17.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c18.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c19.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c20.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c21.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c22.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c23.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c24.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c25.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c26.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c27.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c28.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c29.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c30.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c32.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c33.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c34.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c35.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/c36.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/e37.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/e38.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/e39.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/e40.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/e41.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/e42.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/e43.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/e44.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
+			"z_index": "front"
+		},{
+			"name": "Piece",
+			"image_url": "../images/decktet/e45.png",
+			"back_image_url": "../images/decktet/back.png",
+			"rotation": 0,
+			"flipped": true,
+			"user_removable": false,
+			"position": [ 105, 570 ],
 			"z_index": "front"
 		},
 	]
